@@ -1,7 +1,6 @@
 package reporting
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"flocksock/log"

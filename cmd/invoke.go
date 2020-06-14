@@ -1,14 +1,9 @@
 package cmd
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
-
 	"github.com/spf13/cobra"
 
 	"flocksock/log"
-	"flocksock/app/reporting"
 )
 
 var invokeCmd = &cobra.Command{
@@ -18,6 +13,10 @@ var invokeCmd = &cobra.Command{
         flocksock invoke`,
 
 	Run: func(cmd *cobra.Command, args []string) {
+		// Retrieve variables passed into the CLI
+		optOutput, _ := cmd.Flags().GetString("output")
+		//optEasterEgg, _ := cmd.Flags().GetString("easterEgg")
+
         // Configure flocksock with appropriate Twitch Application key
         // Configure flocksock to be enabled on stream(s).
 
@@ -26,7 +25,7 @@ var invokeCmd = &cobra.Command{
 			//reporting.SendMessageDiscord(formattedOutput)
 			} else if optOutput == "stdout" {
 				//reporting.SendMessageStdout(formattedOutput)
-				reporting.SendJSONStdout(formattedOutput)
+				//reporting.SendJSONStdout(formattedOutput)
 		} else {
 				log.Errorf("optOutput: [%s] not supported (discord, stdout)", optOutput)
 			}
@@ -35,6 +34,6 @@ var invokeCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(invokeCmd)
-	reportCmd.Flags().StringP("command", "o", "output", "Specify which output you would like to target.")
-	reportCmd.Flags().StringP("command", "w", "waterypyro", "Performs a defying act of hydroarsonism.")
+	invokeCmd.Flags().StringP("output", "o", "output", "Specify which output you would like to target.")
+	//invokeCmd.Flags().StringP("easterEgg", "w", "waterypyro", "Performs a defying act of hydroarsonism.")
 }
